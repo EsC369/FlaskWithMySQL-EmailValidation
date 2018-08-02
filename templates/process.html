@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+        <title>Email Validation</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            {% with messages = get_flashed_messages(category_filter=["wrong"]) %}
+              {% if messages %}
+                {% for message in messages %}
+
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        <li>{{message}}</li>
+                    </ul>
+                </div>
+                {% endfor %}
+                <form action='/reset' method='post'>
+                <input type='submit' name='reset' class="btn btn-default navbar-btn" value='Try again'>
+                </form>
+              {% endif %}
+            {% endwith %}
+
+            {% with messages = get_flashed_messages(category_filter=["success"]) %}
+              {% if messages %}
+                {% for message in messages %}
+
+                <div class="alert alert-success" role="alert">
+                    <ul>
+                        <li>{{message}}</li>
+                    </ul>
+                </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+
+            {% for email in emails: %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>Email: {{ email['email']}} {{ email['created_at']}}</p>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </body>
+</html>
